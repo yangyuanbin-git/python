@@ -6,7 +6,7 @@ def start_osai_service(exe_path):
     """
     try:
         # 建立连接 (backend="uia" 适用于 Qt 程序)
-        app = Application(backend="uia").connect(path=exe_path, timeout=10)
+        app = Application(backend="uia").connect(path=exe_path)
         main_window = app.window(title="OSAI_POS_Plugin")
         return main_window
     except Exception as e:
@@ -21,13 +21,9 @@ def click_function_button(window_obj, times):
     """
     if window_obj is None:
         return
-
     try:
         # 1. 预先定位按钮 (只找一次，确保速度)
-        target_button = window_obj.child_window(
-            auto_id="MainWidget.widget_head.pushButton_function",
-            control_type="CheckBox"
-        )
+        target_button = window_obj.child_window(auto_id="MainWidget.widget_head.pushButton_function",control_type="Button")
         print(f"开始执行循环，共计 {times} 次")
         # 2. 根据传参进行循环
         for i in range(times):
@@ -35,7 +31,7 @@ def click_function_button(window_obj, times):
             target_button.click() 
             print(f"第 {i+1} 次点击完成")
             # 每次点击之间稍微停顿，防止程序反应不过来
-            time.sleep(0.5)
+            time.sleep(5)
         print("所有任务执行完毕")
     except Exception as e:
         print(f"循环中出现错误: {e}")

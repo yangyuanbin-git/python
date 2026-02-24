@@ -1,7 +1,7 @@
 import uiautomator2 as u2
 import time
 from datetime import datetime
-
+#启动uiauto.dev
 # 1. 连接设备
 d = u2.connect("UMX0221126002669")
 
@@ -21,13 +21,10 @@ def change_product_price(target_id, price):
         log_action(f"正在定位商品 {target_id} 的编辑按钮...")
         # 建议使用 xpath 或 scroll.to 确保 100 在屏幕内
         edit_btn = d.xpath(f'//*[@text="{target_id}"]/following::*[@text="编辑"][1]')
-        
         if not edit_btn.wait(timeout=5.0):
             raise Exception(f"未能在页面找到商品 {target_id} 或其对应的编辑按钮")
-        
         edit_btn.click()
         log_action("已点击编辑")
-
         # --- 第二步：输入新价格 ---
         log_action(f"正在尝试修改价格为: {price}")
         price_input = d(text="商品价格").sibling(className="android.widget.EditText")

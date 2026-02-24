@@ -26,7 +26,27 @@ def login_operation(page, loop_index):
     except Exception as e:
         print(f"第 {loop_index + 1} 次：点击登录按钮失败，错误：{e}")
         raise  # 抛出异常，终止循环（也可根据需要改为continue跳过）
-    #点击退出按钮
+    # 4. 点击查询门店商品按钮
+    try:
+        query_btn = page.locator("//button[@id='jumpStoreGoodsButton']").nth(0)
+        # 等待按钮可点击，避免元素未加载完成
+        query_btn.wait_for(state="visible", timeout=5000)
+        query_btn.click()
+        print(f"第 {loop_index + 1} 次：查询门店商品按钮点击成功")
+    except Exception as e:
+        print(f"第 {loop_index + 1} 次：点击查询门店商品按钮失败，错误：{e}")
+        raise  # 抛出异常，终止循环（也可根据需要改为continue跳过）
+    # 5. 点击返回主页界面按钮
+    try:
+        return_btn = page.locator("//button[@id='jumpMainButton']")
+        # 等待按钮可点击，避免元素未加载完成
+        return_btn.wait_for(state="visible", timeout=5000)
+        return_btn.click()
+        print(f"第 {loop_index + 1} 次：返回主页界面按钮点击成功")
+    except Exception as e:
+        print(f"第 {loop_index + 1} 次：点击返回主页界面按钮失败，错误：{e}")
+        raise  # 抛出异常，终止循环（也可根据需要改为continue跳过）
+    # 6. 点击退出按钮
     try:
         logout_btn = page.locator("//button[@id='logoutButton']")
         # 等待按钮可点击，避免元素未加载完成
